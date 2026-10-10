@@ -1,0 +1,39 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>SecureSure Claims Processing</title>
+<style>
+body{font-family:Arial;margin:30px;background:#f4f6f8}.card{max-width:1000px;margin:auto;background:white;padding:24px;border-radius:12px;box-shadow:0 2px 12px #ccc}
+table{width:100%;border-collapse:collapse;margin-top:16px}th,td{border:1px solid #ddd;padding:8px}
+button{padding:7px 12px;margin-right:5px}.status{font-weight:700}
+</style></head>
+<body><div class="card">
+<h1>SecureSure Core Claims Application</h1>
+<p>Practice downstream claims system.</p>
+<table id="claims"><thead><tr><th>Claim ID</th><th>Policy</th><th>Claimant</th><th>Amount</th><th>Decision</th><th>Action</th></tr></thead><tbody></tbody></table>
+<div id="result"></div>
+</div>
+<script>
+const data = [
+['CLM1001','POL10001','Anita Rao','32000'],
+['CLM1002','POL10002','Rohan Mehta','125000'],
+['CLM1003','POL10003','Priya Nair','85000'],
+['CLM1004','POL99999','Vikram Shah','45000'],
+['CLM1005','POL10005','Meera Iyer','180000'],
+['CLM1006','POL10006','Arjun Kumar','75000'],
+['CLM1007','POL10007','Neha Singh','42000'],
+['CLM1008','POL10008','Karthik Rao','60000']
+];
+const body=document.querySelector('#claims tbody');
+data.forEach(r=>{
+ const tr=document.createElement('tr');
+ tr.innerHTML=`<td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td>
+ <td><select class="decision"><option>Approve</option><option>Reject</option><option>Pending Review</option></select></td>
+ <td><button class="save">Save</button></td>`;
+ body.appendChild(tr);
+});
+document.querySelectorAll('.save').forEach((b)=>{
+ b.addEventListener('click',()=>{
+   const row=b.closest('tr'); row.querySelector('.status');
+   document.getElementById('result').innerText='Saved transaction '+row.cells[0].innerText;
+ });
+});
+</script></body></html>

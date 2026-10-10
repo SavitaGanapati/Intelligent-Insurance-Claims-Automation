@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>SecureSure Claims Intake</title>
+<style>
+body{font-family:Arial;margin:40px;background:#f4f6f8}.card{max-width:850px;margin:auto;background:white;padding:28px;border-radius:12px;box-shadow:0 2px 12px #ccc}
+label{display:block;margin-top:12px;font-weight:600}input,select{width:100%;padding:9px;margin-top:5px;box-sizing:border-box}
+button{margin-top:18px;padding:11px 18px;background:#222;color:#fff;border:0;border-radius:6px;cursor:pointer}
+#msg{margin-top:15px;padding:12px;background:#eef}
+</style></head>
+<body><div class="card">
+<h1>SecureSure Insurance — Claim Intake</h1>
+<p>Practice automation portal — all data is fictional.</p>
+<form id="claimForm">
+<label>Claim ID<input id="claimId" required></label>
+<label>Policy Number<input id="policyNumber" required></label>
+<label>Claimant Name<input id="claimantName" required></label>
+<label>Email<input id="email" type="email" required></label>
+<label>Claim Type<select id="claimType"><option>Motor</option><option>Health</option><option>Property</option></select></label>
+<label>Date of Loss<input id="dateOfLoss" type="date" required></label>
+<label>Loss Type<input id="lossType" required></label>
+<label>Claim Amount<input id="claimAmount" type="number" required></label>
+<label>Documents Complete<select id="documentsComplete"><option>Yes</option><option>No</option></select></label>
+<label>Fraud Flag<select id="fraudFlag"><option>No</option><option>Yes</option></select></label>
+<button type="submit" id="submitClaim">Submit Claim</button>
+</form><div id="msg"></div></div>
+<script>
+document.getElementById('claimForm').addEventListener('submit', function(e){
+e.preventDefault();
+document.getElementById('msg').innerText='Claim submitted successfully: '+document.getElementById('claimId').value;
+});
+</script>
+</body></html>

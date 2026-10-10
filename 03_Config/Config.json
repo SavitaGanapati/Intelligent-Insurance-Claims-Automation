@@ -1,0 +1,15 @@
+{
+  "Settings": {
+    "PortalUrl": "http://127.0.0.1:8000/",
+    "ProcessingAppUrl": "http://127.0.0.1:8000/core.html",
+    "InputFile": "02_TestData/Claims_Input.csv",
+    "MaxClaimAmountAutoApprove": 100000,
+    "SlaHours": 24,
+    "RetryCount": 2,
+    "QueueName": "InsuranceClaimsQueue"
+  },
+  "Assets": {
+    "PortalUsername": "demo_user",
+    "PortalPassword": "DO_NOT_STORE_REAL_PASSWORD"
+  }
+}
