@@ -16,7 +16,10 @@ button{margin-top:18px;padding:11px 18px;background:#222;color:#fff;border:0;bor
 <label>Claimant Name<input id="claimantName" required></label>
 <label>Email<input id="email" type="email" required></label>
 <label>Claim Type<select id="claimType"><option>Motor</option><option>Health</option><option>Property</option></select></label>
-<label>Date of Loss<input id="dateOfLoss" type="date" required></label>
+<label>Date of Loss
+  <input id="dateOfLoss" type="text"
+         placeholder="YYYY-MM-DD" required>
+</label>
 <label>Loss Type<input id="lossType" required></label>
 <label>Claim Amount<input id="claimAmount" type="number" required></label>
 <label>Documents Complete<select id="documentsComplete"><option>Yes</option><option>No</option></select></label>

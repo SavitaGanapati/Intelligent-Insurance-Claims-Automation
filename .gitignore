@@ -4,3 +4,12 @@
 **/TestResults/
 *.log
 *.nupkg
+# UiPath generated files
+**/.objects/
+**/.screenshots/
+**/.settings/
+**/.storage/
+**/.tmh/
+# Local and temporary files
+*.tmp
+*.bak

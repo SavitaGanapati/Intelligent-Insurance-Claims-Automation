@@ -1,0 +1,6 @@
+{
+  "Name": "INS_InsuranceClaimsAutomation",
+  "ProjectType": "Process",
+  "Description": "Insurance claims intake and processing automation.",
+  "MainFile": "Main.xaml"
+}
