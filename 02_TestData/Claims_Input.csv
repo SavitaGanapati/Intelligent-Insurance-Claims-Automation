@@ -1,9 +1,9 @@
 ClaimId,PolicyNumber,ClaimantName,Email,ClaimType,DateOfLoss,LossType,ClaimAmount,PolicyStatus,DocumentsComplete,FraudFlag
-CLM1001,POL10001,Anita Rao,anita.rao@example.com,Motor,2026-08-20,Accident,32000,Active,Yes,No
-CLM1002,POL10002,Rohan Mehta,rohan.mehta@example.com,Motor,2026-08-21,Accident,125000,Active,Yes,No
-CLM1003,POL10003,Priya Nair,priya.nair@example.com,Health,2026-08-18,Hospitalization,85000,Active,No,Yes
-CLM1004,POL99999,Vikram Shah,vikram.shah@example.com,Motor,2026-08-22,Accident,45000,Inactive,Yes,No
-CLM1005,POL10005,Meera Iyer,bad-email,Property,2026-08-19,Fire,180000,Active,Yes,No
-CLM1006,POL10006,Arjun Kumar,arjun.kumar@example.com,Motor,2026-08-23,Theft,75000,Active,Yes,Yes
-CLM1007,POL10007,Neha Singh,neha.singh@example.com,Health,2026-08-24,Hospitalization,42000,Active,Yes,No
-CLM1008,POL10008,Karthik Rao,karthik.rao@example.com,Property,2026-08-25,Water Damage,60000,Active,Yes,No
+CLM1001,POL10001,Anita Rao,anita.rao@example.com,Motor,20-08-2026,Accident,32000,Active,Yes,No
+CLM1002,POL10002,Rohan Mehta,rohan.mehta@example.com,Motor,21-08-2026,Accident,125000,Active,Yes,No
+CLM1003,POL10003,Priya Nair,priya.nair@example.com,Health,18-08-2026,Hospitalization,85000,Active,No,Yes
+CLM1004,POL99999,Vikram Shah,vikram.shah@example.com,Motor,22-08-2026,Accident,45000,Inactive,Yes,No
+CLM1005,POL10005,Meera Iyer,bad-email,Property,19-08-2026,Fire,180000,Active,Yes,No
+CLM1006,POL10006,Arjun Kumar,arjun.kumar@example.com,Motor,23-08-2026,Theft,75000,Active,Yes,Yes
+CLM1007,POL10007,Neha Singh,neha.singh@example.com,Health,24-08-2026,Hospitalization,42000,Active,Yes,No
+CLM1008,POL10008,Karthik Rao,karthik.rao@example.com,Property,25-08-2026,Water Damage,60000,Active,Yes,No

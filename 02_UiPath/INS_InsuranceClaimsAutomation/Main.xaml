@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Main" VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Drawing;assembly=System.Drawing.Common" xmlns:sd1="clr-namespace:System.Drawing;assembly=System.Drawing.Primitives" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Main" VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:sd1="clr-namespace:System.Drawing;assembly=System.Drawing.Common" xmlns:sd2="clr-namespace:System.Drawing;assembly=System.Drawing.Primitives" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
       <x:String>System.Activities</x:String>
@@ -43,6 +43,12 @@
       <x:String>System.Linq.Expressions</x:String>
       <x:String>System.Numerics</x:String>
       <x:String>UiPath.UIAutomationNext.Activities.Models</x:String>
+      <x:String>UiPath.Platform.ResourceHandling</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>UiPath.CSV</x:String>
+      <x:String>UiPath.CSV.Activities</x:String>
+      <x:String>UiPath.DataTableUtilities</x:String>
+      <x:String>UiPath.UIAutomationNext.Models.CV</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -101,14 +107,21 @@
       <AssemblyReference>System.Runtime.Numerics</AssemblyReference>
       <AssemblyReference>System.Collections.NonGeneric</AssemblyReference>
       <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>System.Private.Xml</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities.Design</AssemblyReference>
+      <AssemblyReference>System.Data.SqlClient</AssemblyReference>
+      <AssemblyReference>NPOI.Core</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <sap:WorkflowViewStateService.ViewState>
     <scg:Dictionary x:TypeArguments="x:String, x:Object">
-      <x:Boolean x:Key="ShouldExpandAll">False</x:Boolean>
+      <x:Boolean x:Key="ShouldExpandAll">True</x:Boolean>
+      <x:Boolean x:Key="ShouldCollapseAll">False</x:Boolean>
     </scg:Dictionary>
   </sap:WorkflowViewStateService.ViewState>
-  <Sequence DisplayName="Main Sequence" sap:VirtualizedContainerService.HintSize="666,3098" sap2010:WorkflowViewState.IdRef="Sequence_2">
+  <Sequence DisplayName="Main Sequence" sap:VirtualizedContainerService.HintSize="1164,5530" sap2010:WorkflowViewState.IdRef="Sequence_2">
     <Sequence.Variables>
       <Variable x:TypeArguments="ui:UiElement" Name="outputElement">
         <sap:WorkflowViewStateService.ViewState>
@@ -118,251 +131,415 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </Variable>
+      <Variable x:TypeArguments="sd:DataTable" Name="claimsData" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <uix:NApplicationCard AttachMode="ByInstance" DisplayName="Chrome SecureSure Claims Intake" HealingAgentBehavior="Job" sap:VirtualizedContainerService.HintSize="452,3075" sap2010:WorkflowViewState.IdRef="NApplicationCard_2" InteractionMode="DebuggerApi" ScopeGuid="7dd032ee-7160-4ee4-a417-ca9b7e0e9d05" Version="V2">
-      <uix:NApplicationCard.Body>
-        <ActivityAction x:TypeArguments="x:Object">
-          <ActivityAction.Argument>
-            <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
-          </ActivityAction.Argument>
-          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="450,2880" sap2010:WorkflowViewState.IdRef="Sequence_3">
-            <Sequence.Variables>
-              <Variable x:TypeArguments="x:String" Name="claimStatus" />
-              <Variable x:TypeArguments="ui:UiElement" Name="SuccessElement" />
-            </Sequence.Variables>
-            <sap:WorkflowViewStateService.ViewState>
-              <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-              </scg:Dictionary>
-            </sap:WorkflowViewStateService.ViewState>
-            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type Into 'Claim ID'" EmptyFieldMode="SingleLine" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,247" sap2010:WorkflowViewState.IdRef="NTypeInto_2" InteractionMode="SameAsCard" ScopeIdentifier="7dd032ee-7160-4ee4-a417-ca9b7e0e9d05" Text="CLM1001" Version="V5">
-              <uix:NTypeInto.Target>
-                <uix:TargetAnchorable BrowserURL="127.0.0.1" ContentHash="Iht2xxK7DE60YVE8JgejwQ" DesignTimeRectangle="758, 515, 1360, 60" ElementType="InputBox" ElementVisibilityArgument="Interactive" FuzzySelectorArgument="&lt;webctrl id='claimId' tag='INPUT' type='' class='' aaname='' matching:id='fuzzy' fuzzylevel:id='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' /&gt;" Guid="baf6ba9d-02e8-4e6c-839a-285f5deb629b" InformativeScreenshot="879076b15c02354afd3d279464a40154.jpg" Reference="yD5kY0yUz0CgsGm-QhTFpw/R9KL-Cn9dEmqbAIASPrHxg" ScopeSelectorArgument="&lt;html app='chrome.exe' title='SecureSure Claims Intake' /&gt;" SearchSteps="FuzzySelector" Version="V6" WaitForReadyArgument="Interactive">
-                  <uix:TargetAnchorable.Anchors>
-                    <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
-                      <uix:Target DesignTimeRectangle="758, 478, 1360, 97" ElementType="Text" FuzzySelectorArgument="&lt;webctrl tag='LABEL' type='' class='' aaname='Claim ID' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' check:innerText='Claim ID' /&gt;" Guid="dda63471-f903-4d07-b0b1-465d61f5472f" SearchSteps="FuzzySelector" />
-                    </scg:List>
-                  </uix:TargetAnchorable.Anchors>
-                </uix:TargetAnchorable>
-              </uix:NTypeInto.Target>
-              <uix:NTypeInto.VerifyOptions>
-                <uix:VerifyExecutionTypeIntoOptions Mode="Appears">
-                  <uix:VerifyExecutionTypeIntoOptions.Retry>
-                    <InArgument x:TypeArguments="x:Boolean" />
-                  </uix:VerifyExecutionTypeIntoOptions.Retry>
-                  <uix:VerifyExecutionTypeIntoOptions.Timeout>
-                    <InArgument x:TypeArguments="x:Double" />
-                  </uix:VerifyExecutionTypeIntoOptions.Timeout>
-                </uix:VerifyExecutionTypeIntoOptions>
-              </uix:NTypeInto.VerifyOptions>
-            </uix:NTypeInto>
-            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type Into 'Policy Number'" EmptyFieldMode="SingleLine" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,247" sap2010:WorkflowViewState.IdRef="NTypeInto_3" InteractionMode="SameAsCard" ScopeIdentifier="7dd032ee-7160-4ee4-a417-ca9b7e0e9d05" Text="POL10001" Version="V5">
-              <uix:NTypeInto.Target>
-                <uix:TargetAnchorable BrowserURL="127.0.0.1" ContentHash="FDbdYorhiUimhCFPSI0tKg" DesignTimeRectangle="758, 631, 1360, 60" ElementType="InputBox" ElementVisibilityArgument="Interactive" FuzzySelectorArgument="&lt;webctrl id='policyNumber' tag='INPUT' type='' class='' aaname='' matching:id='fuzzy' fuzzylevel:id='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' /&gt;" Guid="f000519a-1110-4f20-85f9-eacda3f08c0c" InformativeScreenshot="6a78c2681b34e69cf1c059082f349cd7.jpg" Reference="yD5kY0yUz0CgsGm-QhTFpw/tyJiUsdtUEKBABrn6GB5_g" ScopeSelectorArgument="&lt;html app='chrome.exe' title='SecureSure Claims Intake' /&gt;" SearchSteps="FuzzySelector" Version="V6" WaitForReadyArgument="Interactive">
-                  <uix:TargetAnchorable.Anchors>
-                    <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
-                      <uix:Target DesignTimeRectangle="758, 594, 1360, 97" ElementType="Text" FuzzySelectorArgument="&lt;webctrl aaname='Policy Number' tag='LABEL' type='' class='' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' check:innerText='Policy Number' /&gt;" Guid="2299dc04-7997-44a7-b746-8f5e6d75bb85" SearchSteps="FuzzySelector" />
-                    </scg:List>
-                  </uix:TargetAnchorable.Anchors>
-                </uix:TargetAnchorable>
-              </uix:NTypeInto.Target>
-              <uix:NTypeInto.VerifyOptions>
-                <uix:VerifyExecutionTypeIntoOptions Mode="Appears">
-                  <uix:VerifyExecutionTypeIntoOptions.Retry>
-                    <InArgument x:TypeArguments="x:Boolean" />
-                  </uix:VerifyExecutionTypeIntoOptions.Retry>
-                  <uix:VerifyExecutionTypeIntoOptions.Timeout>
-                    <InArgument x:TypeArguments="x:Double" />
-                  </uix:VerifyExecutionTypeIntoOptions.Timeout>
-                </uix:VerifyExecutionTypeIntoOptions>
-              </uix:NTypeInto.VerifyOptions>
-            </uix:NTypeInto>
-            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type Into 'Claimant Name'" EmptyFieldMode="SingleLine" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,247" sap2010:WorkflowViewState.IdRef="NTypeInto_5" InteractionMode="SameAsCard" ScopeIdentifier="7dd032ee-7160-4ee4-a417-ca9b7e0e9d05" Text="Anita Rao" Version="V5">
-              <uix:NTypeInto.Target>
-                <uix:TargetAnchorable BrowserURL="127.0.0.1" ContentHash="-9L4BKNnVk2JgE1TlcVCsg" DesignTimeRectangle="758, 747, 1360, 60" ElementType="InputBox" ElementVisibilityArgument="Interactive" FuzzySelectorArgument="&lt;webctrl id='claimantName' tag='INPUT' type='' class='' aaname='' matching:id='fuzzy' fuzzylevel:id='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' /&gt;" Guid="a3b2532c-6777-4b72-a18e-1b1b56b9b6b8" InformativeScreenshot="5462d9753affca45f5b4416e98b7d2c8.jpg" Reference="yD5kY0yUz0CgsGm-QhTFpw/GVwXuFUg0Uq8PbZSDpZxCg" ScopeSelectorArgument="&lt;html app='chrome.exe' title='SecureSure Claims Intake' /&gt;" SearchSteps="FuzzySelector" Version="V6" WaitForReadyArgument="Interactive">
-                  <uix:TargetAnchorable.Anchors>
-                    <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
-                      <uix:Target DesignTimeRectangle="758, 710, 1360, 97" ElementType="Text" FuzzySelectorArgument="&lt;webctrl aaname='Claimant Name' tag='LABEL' type='' class='' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' check:innerText='Claimant Name' /&gt;" Guid="09d90371-78aa-4a04-9223-df0eba07168c" SearchSteps="FuzzySelector" />
-                    </scg:List>
-                  </uix:TargetAnchorable.Anchors>
-                </uix:TargetAnchorable>
-              </uix:NTypeInto.Target>
-              <uix:NTypeInto.VerifyOptions>
-                <uix:VerifyExecutionTypeIntoOptions Mode="Appears">
-                  <uix:VerifyExecutionTypeIntoOptions.Retry>
-                    <InArgument x:TypeArguments="x:Boolean" />
-                  </uix:VerifyExecutionTypeIntoOptions.Retry>
-                  <uix:VerifyExecutionTypeIntoOptions.Timeout>
-                    <InArgument x:TypeArguments="x:Double" />
-                  </uix:VerifyExecutionTypeIntoOptions.Timeout>
-                </uix:VerifyExecutionTypeIntoOptions>
-              </uix:NTypeInto.VerifyOptions>
-            </uix:NTypeInto>
-            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type Into 'Email'" EmptyFieldMode="SingleLine" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,247" sap2010:WorkflowViewState.IdRef="NTypeInto_6" InteractionMode="SameAsCard" ScopeIdentifier="7dd032ee-7160-4ee4-a417-ca9b7e0e9d05" Text="anita.rao@example.com" Version="V5">
-              <uix:NTypeInto.Target>
-                <uix:TargetAnchorable BrowserURL="127.0.0.1" ContentHash="jTTDys2VzkePi5AyG-WCOw" DesignTimeRectangle="758, 863, 1360, 60" ElementType="InputBox" ElementVisibilityArgument="Interactive" FuzzySelectorArgument="&lt;webctrl id='email' tag='INPUT' type='email' class='' aaname='' matching:id='fuzzy' fuzzylevel:id='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' /&gt;" Guid="8ae285d2-31d0-492b-90e3-dfeeefda6930" InformativeScreenshot="30f70c8f743081c9f8bdacbc36622a90.jpg" Reference="yD5kY0yUz0CgsGm-QhTFpw/G-A1Vp4_f0S4SGlelg7fOw" ScopeSelectorArgument="&lt;html app='chrome.exe' title='SecureSure Claims Intake' /&gt;" SearchSteps="FuzzySelector" Version="V6" WaitForReadyArgument="Interactive">
-                  <uix:TargetAnchorable.Anchors>
-                    <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
-                      <uix:Target DesignTimeRectangle="758, 826, 1360, 97" ElementType="Text" FuzzySelectorArgument="&lt;webctrl aaname='Email' tag='LABEL' type='' class='' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' check:innerText='Email' /&gt;" Guid="ce769c55-5285-449e-a47f-1f7eb24b3e47" SearchSteps="FuzzySelector" />
-                    </scg:List>
-                  </uix:TargetAnchorable.Anchors>
-                </uix:TargetAnchorable>
-              </uix:NTypeInto.Target>
-              <uix:NTypeInto.VerifyOptions>
-                <uix:VerifyExecutionTypeIntoOptions Mode="Appears">
-                  <uix:VerifyExecutionTypeIntoOptions.Retry>
-                    <InArgument x:TypeArguments="x:Boolean" />
-                  </uix:VerifyExecutionTypeIntoOptions.Retry>
-                  <uix:VerifyExecutionTypeIntoOptions.Timeout>
-                    <InArgument x:TypeArguments="x:Double" />
-                  </uix:VerifyExecutionTypeIntoOptions.Timeout>
-                </uix:VerifyExecutionTypeIntoOptions>
-              </uix:NTypeInto.VerifyOptions>
-            </uix:NTypeInto>
-            <uix:NSelectItem DisplayName="Select Item 'Claim TypeMotorHealthPr…'" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,195.5" sap2010:WorkflowViewState.IdRef="NSelectItem_1" Item="Motor" ScopeIdentifier="7dd032ee-7160-4ee4-a417-ca9b7e0e9d05" Version="V5">
-              <uix:NSelectItem.Items>
-                <scg:List x:TypeArguments="x:String" Capacity="3">
-                  <x:String>Motor</x:String>
-                  <x:String>Health</x:String>
-                  <x:String>Property</x:String>
-                </scg:List>
-              </uix:NSelectItem.Items>
-              <uix:NSelectItem.Target>
-                <uix:TargetAnchorable BrowserURL="127.0.0.1" ContentHash="m206gjSKqUu3dgqwZLJ0ig" DesignTimeRectangle="758, 823, 1360, 57" ElementType="DropDown" ElementVisibilityArgument="Interactive" FuzzySelectorArgument="&lt;webctrl id='claimType' tag='SELECT' type='' class='' aaname='' matching:id='fuzzy' fuzzylevel:id='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' /&gt;" Guid="c8bb6ba8-65f1-4704-a111-177c19aafaa4" InformativeScreenshot="b9079bcb2157977d1208c4f79d4db99c.jpg" Reference="yD5kY0yUz0CgsGm-QhTFpw/lTRYNCmf9USThAuXMzS08g" ScopeSelectorArgument="&lt;html app='chrome.exe' title='SecureSure Claims Intake' /&gt;" SearchSteps="FuzzySelector" Version="V6" WaitForReadyArgument="Interactive">
-                  <uix:TargetAnchorable.Anchors>
-                    <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
-                      <uix:Target DesignTimeRectangle="758, 786, 1360, 94" ElementType="Text" FuzzySelectorArgument="&lt;webctrl aaname='Claim Type' tag='LABEL' type='' class='' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' check:innerText='Claim Type&amp;#xA;Motor&amp;#xA;Health&amp;#xA;Property' /&gt;" Guid="bca20e21-1112-4bed-b5f0-8eada8ff7cdd" SearchSteps="FuzzySelector" />
-                    </scg:List>
-                  </uix:TargetAnchorable.Anchors>
-                </uix:TargetAnchorable>
-              </uix:NSelectItem.Target>
-            </uix:NSelectItem>
-            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type Into 'Date of Loss'" EmptyFieldMode="SingleLine" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,247" sap2010:WorkflowViewState.IdRef="NTypeInto_11" InteractionMode="SameAsCard" ScopeIdentifier="7dd032ee-7160-4ee4-a417-ca9b7e0e9d05" Text="2026-08-20" Version="V5">
-              <uix:NTypeInto.Target>
-                <uix:TargetAnchorable BrowserURL="127.0.0.1" ContentHash="GHKYDYFp8E2umGg1aC0o5A" DesignTimeRectangle="758, 939, 1360, 60" ElementType="InputBox" ElementVisibilityArgument="Interactive" FuzzySelectorArgument="&lt;webctrl id='dateOfLoss' tag='INPUT' type='text' class='' placeholder='YYYY-MM-DD' aaname='' matching:id='fuzzy' fuzzylevel:id='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' /&gt;" Guid="8bc539f3-32bc-457b-adfc-076582c3c4f7" InformativeScreenshot="806247568f98659731700cfb86617b03.jpg" Reference="yD5kY0yUz0CgsGm-QhTFpw/_kkgdww5gUOk4HYxkGB2Pw" ScopeSelectorArgument="&lt;html app='chrome.exe' title='SecureSure Claims Intake' /&gt;" SearchSteps="FuzzySelector" Version="V6" WaitForReadyArgument="Interactive">
-                  <uix:TargetAnchorable.Anchors>
-                    <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
-                      <uix:Target DesignTimeRectangle="758, 902, 1360, 97" ElementType="Text" FuzzySelectorArgument="&lt;webctrl aaname='Date of Loss    ' tag='LABEL' type='' class='' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' check:innerText='Date of Loss' /&gt;" Guid="8d4d6d75-672c-4063-a166-05c778bc8cad" SearchSteps="FuzzySelector" />
-                    </scg:List>
-                  </uix:TargetAnchorable.Anchors>
-                </uix:TargetAnchorable>
-              </uix:NTypeInto.Target>
-              <uix:NTypeInto.VerifyOptions>
-                <uix:VerifyExecutionTypeIntoOptions Mode="Appears">
-                  <uix:VerifyExecutionTypeIntoOptions.Retry>
-                    <InArgument x:TypeArguments="x:Boolean" />
-                  </uix:VerifyExecutionTypeIntoOptions.Retry>
-                  <uix:VerifyExecutionTypeIntoOptions.Timeout>
-                    <InArgument x:TypeArguments="x:Double" />
-                  </uix:VerifyExecutionTypeIntoOptions.Timeout>
-                </uix:VerifyExecutionTypeIntoOptions>
-              </uix:NTypeInto.VerifyOptions>
-            </uix:NTypeInto>
-            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type Into 'Loss Type'" EmptyFieldMode="SingleLine" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,247" sap2010:WorkflowViewState.IdRef="NTypeInto_9" InteractionMode="SameAsCard" ScopeIdentifier="7dd032ee-7160-4ee4-a417-ca9b7e0e9d05" Text="Accident" Version="V5">
-              <uix:NTypeInto.Target>
-                <uix:TargetAnchorable BrowserURL="127.0.0.1" ContentHash="3IZSLFWNwUqW0MN26WvJDw" DesignTimeRectangle="758, 1211, 1360, 60" ElementType="InputBox" ElementVisibilityArgument="Interactive" FuzzySelectorArgument="&lt;webctrl id='lossType' tag='INPUT' type='' class='' aaname='' matching:id='fuzzy' fuzzylevel:id='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' /&gt;" Guid="324b9fda-8ef5-4e81-9d88-230bd562916b" InformativeScreenshot="b9eb1ee83991db4cef45f00295234a05.jpg" Reference="yD5kY0yUz0CgsGm-QhTFpw/893WVVLugkSTRx9eIaaIfQ" ScopeSelectorArgument="&lt;html app='chrome.exe' title='SecureSure Claims Intake' /&gt;" SearchSteps="FuzzySelector" Version="V6" WaitForReadyArgument="Interactive">
-                  <uix:TargetAnchorable.Anchors>
-                    <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
-                      <uix:Target DesignTimeRectangle="758, 1174, 1360, 97" ElementType="Text" FuzzySelectorArgument="&lt;webctrl aaname='Loss Type' tag='LABEL' type='' class='' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' check:innerText='Loss Type' /&gt;" Guid="398ea854-57b8-4b07-9d34-ad9996a420f5" SearchSteps="FuzzySelector" />
-                    </scg:List>
-                  </uix:TargetAnchorable.Anchors>
-                </uix:TargetAnchorable>
-              </uix:NTypeInto.Target>
-              <uix:NTypeInto.VerifyOptions>
-                <uix:VerifyExecutionTypeIntoOptions Mode="Appears">
-                  <uix:VerifyExecutionTypeIntoOptions.Retry>
-                    <InArgument x:TypeArguments="x:Boolean" />
-                  </uix:VerifyExecutionTypeIntoOptions.Retry>
-                  <uix:VerifyExecutionTypeIntoOptions.Timeout>
-                    <InArgument x:TypeArguments="x:Double" />
-                  </uix:VerifyExecutionTypeIntoOptions.Timeout>
-                </uix:VerifyExecutionTypeIntoOptions>
-              </uix:NTypeInto.VerifyOptions>
-            </uix:NTypeInto>
-            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type Into 'Claim Amount'" EmptyFieldMode="SingleLine" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,247" sap2010:WorkflowViewState.IdRef="NTypeInto_10" InteractionMode="SameAsCard" ScopeIdentifier="7dd032ee-7160-4ee4-a417-ca9b7e0e9d05" Text="32000" Version="V5">
-              <uix:NTypeInto.Target>
-                <uix:TargetAnchorable BrowserURL="127.0.0.1" ContentHash="UmdBJlCtwU6Cg7yTsSs_EQ" DesignTimeRectangle="758, 1327, 1360, 60" ElementType="InputBox" ElementVisibilityArgument="Interactive" FuzzySelectorArgument="&lt;webctrl id='claimAmount' tag='INPUT' type='number' class='' aaname='' matching:id='fuzzy' fuzzylevel:id='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' /&gt;" Guid="1e611ab9-53be-4568-b74e-8a5eccf52a1d" InformativeScreenshot="048d766b1ecb191bc36a242317762f4c.jpg" Reference="yD5kY0yUz0CgsGm-QhTFpw/kDnAupXkTU6kJLMTxYR6Uw" ScopeSelectorArgument="&lt;html app='chrome.exe' title='SecureSure Claims Intake' /&gt;" SearchSteps="FuzzySelector" Version="V6" WaitForReadyArgument="Interactive">
-                  <uix:TargetAnchorable.Anchors>
-                    <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
-                      <uix:Target DesignTimeRectangle="758, 1290, 1360, 97" ElementType="Text" FuzzySelectorArgument="&lt;webctrl aaname='Claim Amount' tag='LABEL' type='' class='' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' check:innerText='Claim Amount' /&gt;" Guid="11a86f7a-a2a6-4d97-9562-cbd3d86f8a7a" SearchSteps="FuzzySelector" />
-                    </scg:List>
-                  </uix:TargetAnchorable.Anchors>
-                </uix:TargetAnchorable>
-              </uix:NTypeInto.Target>
-              <uix:NTypeInto.VerifyOptions>
-                <uix:VerifyExecutionTypeIntoOptions Mode="Appears">
-                  <uix:VerifyExecutionTypeIntoOptions.Retry>
-                    <InArgument x:TypeArguments="x:Boolean" />
-                  </uix:VerifyExecutionTypeIntoOptions.Retry>
-                  <uix:VerifyExecutionTypeIntoOptions.Timeout>
-                    <InArgument x:TypeArguments="x:Double" />
-                  </uix:VerifyExecutionTypeIntoOptions.Timeout>
-                </uix:VerifyExecutionTypeIntoOptions>
-              </uix:NTypeInto.VerifyOptions>
-            </uix:NTypeInto>
-            <uix:NSelectItem DisplayName="Select Item 'Documents CompleteYesNo'" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,195.5" sap2010:WorkflowViewState.IdRef="NSelectItem_2" Item="Yes" ScopeIdentifier="7dd032ee-7160-4ee4-a417-ca9b7e0e9d05" Version="V5">
-              <uix:NSelectItem.Items>
-                <scg:List x:TypeArguments="x:String" Capacity="2">
-                  <x:String>Yes</x:String>
-                  <x:String>No</x:String>
-                </scg:List>
-              </uix:NSelectItem.Items>
-              <uix:NSelectItem.Target>
-                <uix:TargetAnchorable BrowserURL="127.0.0.1" ContentHash="pv3gwMEeMUm4j6QU0RjgjQ" DesignTimeRectangle="758, 1287, 1360, 57" ElementType="DropDown" ElementVisibilityArgument="Interactive" FuzzySelectorArgument="&lt;webctrl id='documentsComplete' tag='SELECT' type='' class='' aaname='' matching:id='fuzzy' fuzzylevel:id='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' /&gt;" Guid="df28264d-2764-44f1-ba41-8fa6da48ae68" InformativeScreenshot="7da3a2db2d18d6e703ab8f763ccd32ce.jpg" Reference="yD5kY0yUz0CgsGm-QhTFpw/_VHqatMZiU-3xdp702X4qg" ScopeSelectorArgument="&lt;html app='chrome.exe' title='SecureSure Claims Intake' /&gt;" SearchSteps="FuzzySelector" Version="V6" WaitForReadyArgument="Interactive">
-                  <uix:TargetAnchorable.Anchors>
-                    <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
-                      <uix:Target DesignTimeRectangle="758, 1250, 1360, 94" ElementType="Text" FuzzySelectorArgument="&lt;webctrl aaname='Documents Complete' tag='LABEL' type='' class='' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' check:innerText='Documents Complete&amp;#xA;Yes&amp;#xA;No' /&gt;" Guid="32067d48-f7ef-4387-bf45-0a45ba136cfb" SearchSteps="FuzzySelector" />
-                    </scg:List>
-                  </uix:TargetAnchorable.Anchors>
-                </uix:TargetAnchorable>
-              </uix:NSelectItem.Target>
-            </uix:NSelectItem>
-            <uix:NSelectItem DisplayName="Select Item 'Fraud FlagNoYes'" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,195.5" sap2010:WorkflowViewState.IdRef="NSelectItem_3" Item="No" ScopeIdentifier="7dd032ee-7160-4ee4-a417-ca9b7e0e9d05" Version="V5">
-              <uix:NSelectItem.Items>
-                <scg:List x:TypeArguments="x:String" Capacity="2">
-                  <x:String>No</x:String>
-                  <x:String>Yes</x:String>
-                </scg:List>
-              </uix:NSelectItem.Items>
-              <uix:NSelectItem.Target>
-                <uix:TargetAnchorable BrowserURL="127.0.0.1" ContentHash="hIFvj_AD_kS8RnYpmebxaw" DesignTimeRectangle="758, 1400, 1360, 57" ElementType="DropDown" ElementVisibilityArgument="Interactive" FuzzySelectorArgument="&lt;webctrl id='fraudFlag' tag='SELECT' type='' class='' aaname='' matching:id='fuzzy' fuzzylevel:id='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' /&gt;" Guid="ad59c1ba-b977-4d7e-a0ff-bef967a69299" InformativeScreenshot="9095cf1275406b356dd023336713b833.jpg" Reference="yD5kY0yUz0CgsGm-QhTFpw/mKg5LJerjUGLDFsUXqLWpA" ScopeSelectorArgument="&lt;html app='chrome.exe' title='SecureSure Claims Intake' /&gt;" SearchSteps="FuzzySelector" Version="V6" WaitForReadyArgument="Interactive">
-                  <uix:TargetAnchorable.Anchors>
-                    <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
-                      <uix:Target DesignTimeRectangle="758, 1363, 1360, 94" ElementType="Text" FuzzySelectorArgument="&lt;webctrl aaname='Fraud Flag' tag='LABEL' type='' class='' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' check:innerText='Fraud Flag&amp;#xA;No&amp;#xA;Yes' /&gt;" Guid="ce68d03d-ef42-4750-9c91-2c742c544970" SearchSteps="FuzzySelector" />
-                    </scg:List>
-                  </uix:TargetAnchorable.Anchors>
-                </uix:TargetAnchorable>
-              </uix:NSelectItem.Target>
-            </uix:NSelectItem>
-            <uix:NClick ActivateBefore="True" ClickType="Single" DisplayName="Click 'Submit Claim'" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,194.5" sap2010:WorkflowViewState.IdRef="NClick_2" InteractionMode="SameAsCard" KeyModifiers="None" MouseButton="Left" OutUiElement="[outputElement]" ScopeIdentifier="7dd032ee-7160-4ee4-a417-ca9b7e0e9d05" Version="V5">
-              <uix:NClick.Target>
-                <uix:TargetAnchorable BrowserURL="127.0.0.1" ContentHash="nvJYJ_RsLUmCuUVeDiXulw" DesignTimeRectangle="758, 1485, 184, 61" ElementType="Button" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl id='submitClaim' tag='BUTTON' /&gt;" Guid="2315c866-9784-4976-b3e6-81147e8d4e5c" InformativeScreenshot="6d99566500100bdcc076044c8cf2d5bf.jpg" Reference="yD5kY0yUz0CgsGm-QhTFpw/0oNeeCLoYUeDmf6LVGra9g" ScopeSelectorArgument="&lt;html app='chrome.exe' title='SecureSure Claims Intake' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive" />
-              </uix:NClick.Target>
-            </uix:NClick>
-            <uix:NGetText DisplayName="Get Text 'Claim submitted success…'" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,143" sap2010:WorkflowViewState.IdRef="NGetText_1" OutUiElement="[SuccessElement]" ScopeIdentifier="7dd032ee-7160-4ee4-a417-ca9b7e0e9d05" TextString="[claimStatus]" Version="V5">
-              <uix:NGetText.Target>
-                <uix:TargetAnchorable BrowserURL="127.0.0.1" DesignTimeRectangle="758, 1569, 1360, 68" ElementType="Text" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl id='msg' tag='DIV' /&gt;" Guid="cdf68fc8-7a2d-4449-9a51-bbe8b63b3c9f" InformativeScreenshot="2394f6910a33d4f60a0fca43880c9259.jpg" ScopeSelectorArgument="&lt;html app='chrome.exe' title='SecureSure Claims Intake' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive" />
-              </uix:NGetText.Target>
-            </uix:NGetText>
-            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="416,167" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Claim submission result: &quot; + claimStatus]" />
-          </Sequence>
-        </ActivityAction>
-      </uix:NApplicationCard.Body>
-      <uix:NApplicationCard.OCREngine>
-        <ActivityFunc x:TypeArguments="sd:Image, scg:IEnumerable(scg:KeyValuePair(sd1:Rectangle, x:String))">
-          <ActivityFunc.Argument>
-            <DelegateInArgument x:TypeArguments="sd:Image" Name="Image" />
-          </ActivityFunc.Argument>
-        </ActivityFunc>
-      </uix:NApplicationCard.OCREngine>
-      <uix:NApplicationCard.TargetApp>
-        <uix:TargetApp Area="-13, -13, 2906, 1730" BrowserType="Chrome" ContentHash="bpW_Rz0pVkKyDXvx3_BSPA" IconBase64="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" InformativeScreenshot="cb621b09bb52967f9eb31d05751beb3d.jpg" Reference="yD5kY0yUz0CgsGm-QhTFpw/kuhgTUbJE0ePfkXZQlMRHw" Selector="&lt;html app='chrome.exe' title='SecureSure Claims Intake' /&gt;" Url="http://127.0.0.1:8000/" Version="V3" />
-      </uix:NApplicationCard.TargetApp>
-    </uix:NApplicationCard>
+    <Sequence DisplayName="Main Sequence" sap:VirtualizedContainerService.HintSize="650,5507" sap2010:WorkflowViewState.IdRef="Sequence_9">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ui:ReadCsvFile PathResource="{x:Null}" DataTable="[claimsData]" Delimitator="Comma" DelimitatorForViewModel="Comma" DisplayName="Read CSV" FilePath="D:\Career_Projects\Intelligent-Insurance-Claims-Automation\02_TestData\Claims_Input.csv" sap:VirtualizedContainerService.HintSize="616,171" sap2010:WorkflowViewState.IdRef="ReadCsvFile_3">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:ReadCsvFile>
+      <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[claimsData]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="616,5253" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+        <ui:ForEachRow.Body>
+          <ActivityAction x:TypeArguments="sd:DataRow">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
+            </ActivityAction.Argument>
+            <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="558,5079" sap2010:WorkflowViewState.IdRef="Sequence_4">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <If Condition="[CurrentRow(&quot;PolicyStatus&quot;).ToString.Trim.Equals(&quot;Active&quot;, StringComparison.OrdinalIgnoreCase)]" sap:VirtualizedContainerService.HintSize="524,5019" sap2010:WorkflowViewState.IdRef="If_1">
+                <If.Then>
+                  <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="522,4629" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <uix:NApplicationCard AttachMode="ByInstance" DisplayName="Chrome SecureSure Claims Intake" HealingAgentBehavior="Job" sap:VirtualizedContainerService.HintSize="488,4569" sap2010:WorkflowViewState.IdRef="NApplicationCard_2" InteractionMode="DebuggerApi" ScopeGuid="7dd032ee-7160-4ee4-a417-ca9b7e0e9d05" Version="V2">
+                      <uix:NApplicationCard.Body>
+                        <ActivityAction x:TypeArguments="x:Object">
+                          <ActivityAction.Argument>
+                            <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
+                          </ActivityAction.Argument>
+                          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="486,4374" sap2010:WorkflowViewState.IdRef="Sequence_3">
+                            <Sequence.Variables>
+                              <Variable x:TypeArguments="x:String" Name="claimStatus" />
+                              <Variable x:TypeArguments="x:String" Name="SuccessElement" />
+                              <Variable x:TypeArguments="x:Boolean" Name="emailIsValid" />
+                              <Variable x:TypeArguments="x:String" Name="emailElement" />
+                              <Variable x:TypeArguments="ui:UiElement" Name="OutUiElement" />
+                            </Sequence.Variables>
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type Into 'Claim ID'" EmptyFieldMode="SingleLine" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="452,247" sap2010:WorkflowViewState.IdRef="NTypeInto_2" InteractionMode="SameAsCard" ScopeIdentifier="7dd032ee-7160-4ee4-a417-ca9b7e0e9d05" Text="[CurrentRow(&quot;ClaimId&quot;).ToString]" Version="V5">
+                              <uix:NTypeInto.Target>
+                                <uix:TargetAnchorable BrowserURL="127.0.0.1" ContentHash="Iht2xxK7DE60YVE8JgejwQ" DesignTimeRectangle="758, 515, 1360, 60" ElementType="InputBox" ElementVisibilityArgument="Interactive" FuzzySelectorArgument="&lt;webctrl id='claimId' tag='INPUT' type='' class='' aaname='' matching:id='fuzzy' fuzzylevel:id='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' /&gt;" Guid="baf6ba9d-02e8-4e6c-839a-285f5deb629b" InformativeScreenshot="879076b15c02354afd3d279464a40154.jpg" Reference="yD5kY0yUz0CgsGm-QhTFpw/R9KL-Cn9dEmqbAIASPrHxg" ScopeSelectorArgument="&lt;html app='chrome.exe' title='SecureSure Claims Intake' /&gt;" SearchSteps="FuzzySelector" Version="V6" WaitForReadyArgument="Interactive">
+                                  <uix:TargetAnchorable.Anchors>
+                                    <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
+                                      <uix:Target DesignTimeRectangle="758, 478, 1360, 97" ElementType="Text" FuzzySelectorArgument="&lt;webctrl tag='LABEL' type='' class='' aaname='Claim ID' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' check:innerText='Claim ID' /&gt;" Guid="dda63471-f903-4d07-b0b1-465d61f5472f" SearchSteps="FuzzySelector" />
+                                    </scg:List>
+                                  </uix:TargetAnchorable.Anchors>
+                                </uix:TargetAnchorable>
+                              </uix:NTypeInto.Target>
+                              <uix:NTypeInto.VerifyOptions>
+                                <uix:VerifyExecutionTypeIntoOptions Mode="Appears">
+                                  <uix:VerifyExecutionTypeIntoOptions.Retry>
+                                    <InArgument x:TypeArguments="x:Boolean" />
+                                  </uix:VerifyExecutionTypeIntoOptions.Retry>
+                                  <uix:VerifyExecutionTypeIntoOptions.Timeout>
+                                    <InArgument x:TypeArguments="x:Double" />
+                                  </uix:VerifyExecutionTypeIntoOptions.Timeout>
+                                </uix:VerifyExecutionTypeIntoOptions>
+                              </uix:NTypeInto.VerifyOptions>
+                            </uix:NTypeInto>
+                            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type Into 'Policy Number'" EmptyFieldMode="SingleLine" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="452,247" sap2010:WorkflowViewState.IdRef="NTypeInto_3" InteractionMode="SameAsCard" ScopeIdentifier="7dd032ee-7160-4ee4-a417-ca9b7e0e9d05" Text="[CurrentRow(&quot;PolicyNumber&quot;).ToString]" Version="V5">
+                              <uix:NTypeInto.Target>
+                                <uix:TargetAnchorable BrowserURL="127.0.0.1" ContentHash="FDbdYorhiUimhCFPSI0tKg" DesignTimeRectangle="758, 631, 1360, 60" ElementType="InputBox" ElementVisibilityArgument="Interactive" FuzzySelectorArgument="&lt;webctrl id='policyNumber' tag='INPUT' type='' class='' aaname='' matching:id='fuzzy' fuzzylevel:id='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' /&gt;" Guid="f000519a-1110-4f20-85f9-eacda3f08c0c" InformativeScreenshot="6a78c2681b34e69cf1c059082f349cd7.jpg" Reference="yD5kY0yUz0CgsGm-QhTFpw/tyJiUsdtUEKBABrn6GB5_g" ScopeSelectorArgument="&lt;html app='chrome.exe' title='SecureSure Claims Intake' /&gt;" SearchSteps="FuzzySelector" Version="V6" WaitForReadyArgument="Interactive">
+                                  <uix:TargetAnchorable.Anchors>
+                                    <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
+                                      <uix:Target DesignTimeRectangle="758, 594, 1360, 97" ElementType="Text" FuzzySelectorArgument="&lt;webctrl aaname='Policy Number' tag='LABEL' type='' class='' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' check:innerText='Policy Number' /&gt;" Guid="2299dc04-7997-44a7-b746-8f5e6d75bb85" SearchSteps="FuzzySelector" />
+                                    </scg:List>
+                                  </uix:TargetAnchorable.Anchors>
+                                </uix:TargetAnchorable>
+                              </uix:NTypeInto.Target>
+                              <uix:NTypeInto.VerifyOptions>
+                                <uix:VerifyExecutionTypeIntoOptions Mode="Appears">
+                                  <uix:VerifyExecutionTypeIntoOptions.Retry>
+                                    <InArgument x:TypeArguments="x:Boolean" />
+                                  </uix:VerifyExecutionTypeIntoOptions.Retry>
+                                  <uix:VerifyExecutionTypeIntoOptions.Timeout>
+                                    <InArgument x:TypeArguments="x:Double" />
+                                  </uix:VerifyExecutionTypeIntoOptions.Timeout>
+                                </uix:VerifyExecutionTypeIntoOptions>
+                              </uix:NTypeInto.VerifyOptions>
+                            </uix:NTypeInto>
+                            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type Into 'Claimant Name'" EmptyFieldMode="SingleLine" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="452,247" sap2010:WorkflowViewState.IdRef="NTypeInto_5" InteractionMode="SameAsCard" ScopeIdentifier="7dd032ee-7160-4ee4-a417-ca9b7e0e9d05" Text="[CurrentRow(&quot;ClaimantName&quot;).ToString]" Version="V5">
+                              <uix:NTypeInto.Target>
+                                <uix:TargetAnchorable BrowserURL="127.0.0.1" ContentHash="-9L4BKNnVk2JgE1TlcVCsg" DesignTimeRectangle="758, 747, 1360, 60" ElementType="InputBox" ElementVisibilityArgument="Interactive" FuzzySelectorArgument="&lt;webctrl id='claimantName' tag='INPUT' type='' class='' aaname='' matching:id='fuzzy' fuzzylevel:id='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' /&gt;" Guid="a3b2532c-6777-4b72-a18e-1b1b56b9b6b8" InformativeScreenshot="5462d9753affca45f5b4416e98b7d2c8.jpg" Reference="yD5kY0yUz0CgsGm-QhTFpw/GVwXuFUg0Uq8PbZSDpZxCg" ScopeSelectorArgument="&lt;html app='chrome.exe' title='SecureSure Claims Intake' /&gt;" SearchSteps="FuzzySelector" Version="V6" WaitForReadyArgument="Interactive">
+                                  <uix:TargetAnchorable.Anchors>
+                                    <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
+                                      <uix:Target DesignTimeRectangle="758, 710, 1360, 97" ElementType="Text" FuzzySelectorArgument="&lt;webctrl aaname='Claimant Name' tag='LABEL' type='' class='' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' check:innerText='Claimant Name' /&gt;" Guid="09d90371-78aa-4a04-9223-df0eba07168c" SearchSteps="FuzzySelector" />
+                                    </scg:List>
+                                  </uix:TargetAnchorable.Anchors>
+                                </uix:TargetAnchorable>
+                              </uix:NTypeInto.Target>
+                              <uix:NTypeInto.VerifyOptions>
+                                <uix:VerifyExecutionTypeIntoOptions Mode="Appears">
+                                  <uix:VerifyExecutionTypeIntoOptions.Retry>
+                                    <InArgument x:TypeArguments="x:Boolean" />
+                                  </uix:VerifyExecutionTypeIntoOptions.Retry>
+                                  <uix:VerifyExecutionTypeIntoOptions.Timeout>
+                                    <InArgument x:TypeArguments="x:Double" />
+                                  </uix:VerifyExecutionTypeIntoOptions.Timeout>
+                                </uix:VerifyExecutionTypeIntoOptions>
+                              </uix:NTypeInto.VerifyOptions>
+                            </uix:NTypeInto>
+                            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type Into 'Email'" EmptyFieldMode="SingleLine" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="452,247" sap2010:WorkflowViewState.IdRef="NTypeInto_6" InteractionMode="SameAsCard" ScopeIdentifier="7dd032ee-7160-4ee4-a417-ca9b7e0e9d05" Text="[CurrentRow(&quot;Email&quot;).ToString]" Version="V5">
+                              <uix:NTypeInto.Target>
+                                <uix:TargetAnchorable BrowserURL="127.0.0.1" ContentHash="jTTDys2VzkePi5AyG-WCOw" DesignTimeRectangle="758, 863, 1360, 60" ElementType="InputBox" ElementVisibilityArgument="Interactive" FuzzySelectorArgument="&lt;webctrl id='email' tag='INPUT' type='email' class='' aaname='' matching:id='fuzzy' fuzzylevel:id='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' /&gt;" Guid="8ae285d2-31d0-492b-90e3-dfeeefda6930" InformativeScreenshot="30f70c8f743081c9f8bdacbc36622a90.jpg" Reference="yD5kY0yUz0CgsGm-QhTFpw/G-A1Vp4_f0S4SGlelg7fOw" ScopeSelectorArgument="&lt;html app='chrome.exe' title='SecureSure Claims Intake' /&gt;" SearchSteps="FuzzySelector" Version="V6" WaitForReadyArgument="Interactive">
+                                  <uix:TargetAnchorable.Anchors>
+                                    <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
+                                      <uix:Target DesignTimeRectangle="758, 826, 1360, 97" ElementType="Text" FuzzySelectorArgument="&lt;webctrl aaname='Email' tag='LABEL' type='' class='' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' check:innerText='Email' /&gt;" Guid="ce769c55-5285-449e-a47f-1f7eb24b3e47" SearchSteps="FuzzySelector" />
+                                    </scg:List>
+                                  </uix:TargetAnchorable.Anchors>
+                                </uix:TargetAnchorable>
+                              </uix:NTypeInto.Target>
+                              <uix:NTypeInto.VerifyOptions>
+                                <uix:VerifyExecutionTypeIntoOptions Mode="Appears">
+                                  <uix:VerifyExecutionTypeIntoOptions.Retry>
+                                    <InArgument x:TypeArguments="x:Boolean" />
+                                  </uix:VerifyExecutionTypeIntoOptions.Retry>
+                                  <uix:VerifyExecutionTypeIntoOptions.Timeout>
+                                    <InArgument x:TypeArguments="x:Double" />
+                                  </uix:VerifyExecutionTypeIntoOptions.Timeout>
+                                </uix:VerifyExecutionTypeIntoOptions>
+                              </uix:NTypeInto.VerifyOptions>
+                            </uix:NTypeInto>
+                            <uix:NInjectJsScript InputParameter="{x:Null}" DisplayName="Inject Js Script 'Emailabeyxz.com'" sap:VirtualizedContainerService.HintSize="452,57" sap2010:WorkflowViewState.IdRef="NInjectJsScript_1" ScopeIdentifier="7dd032ee-7160-4ee4-a417-ca9b7e0e9d05" ScriptCode="function (element, input) {&#xA;    return document.getElementById(&quot;email&quot;).checkValidity();&#xA;}" Version="V5">
+                              <uix:NInjectJsScript.ScriptOutput>
+                                <OutArgument x:TypeArguments="x:Boolean">[emailIsValid]</OutArgument>
+                              </uix:NInjectJsScript.ScriptOutput>
+                              <uix:NInjectJsScript.Target>
+                                <uix:TargetAnchorable BrowserURL="127.0.0.1" ContentHash="HdWiAKdScUO4nF5K0zZmXQ" DesignTimeRectangle="246, 769, 1275, 56" ElementType="InputBox" ElementVisibilityArgument="Interactive" FuzzySelectorArgument="&lt;webctrl id='email' tag='INPUT' type='email' class='' aaname='' matching:id='fuzzy' fuzzylevel:id='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' /&gt;" Guid="0ddb8c38-1fc3-4c61-b436-8cd791101585" InformativeScreenshot="5584681ccd1ab2cc9cd8ca5b90c46684.jpg" Reference="yD5kY0yUz0CgsGm-QhTFpw/2j78srhKqEieUPiuGYWnrQ" ScopeSelectorArgument="&lt;html app='chrome.exe' title='SecureSure Claims Intake' /&gt;" SearchSteps="FuzzySelector" Version="V6" WaitForReadyArgument="Interactive">
+                                  <uix:TargetAnchorable.Anchors>
+                                    <scg:List x:TypeArguments="uix:ITarget" Capacity="4">
+                                      <uix:Target DesignTimeRectangle="246, 734, 1275, 91" ElementType="Text" FuzzySelectorArgument="&lt;webctrl aaname='Email' tag='LABEL' type='' class='' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' check:innerText='Email' /&gt;" Guid="3c9f0a57-fb7a-4120-ae0a-c52d352873a1" SearchSteps="FuzzySelector" />
+                                    </scg:List>
+                                  </uix:TargetAnchorable.Anchors>
+                                </uix:TargetAnchorable>
+                              </uix:NInjectJsScript.Target>
+                            </uix:NInjectJsScript>
+                            <uix:NSelectItem DisplayName="Select Item 'Claim TypeMotorHealthPr…'" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="452,195.5" sap2010:WorkflowViewState.IdRef="NSelectItem_4" Item="Motor" ScopeIdentifier="7dd032ee-7160-4ee4-a417-ca9b7e0e9d05" Version="V5">
+                              <uix:NSelectItem.Items>
+                                <scg:List x:TypeArguments="x:String" Capacity="3">
+                                  <x:String>Motor</x:String>
+                                  <x:String>Health</x:String>
+                                  <x:String>Property</x:String>
+                                </scg:List>
+                              </uix:NSelectItem.Items>
+                              <uix:NSelectItem.Target>
+                                <uix:TargetAnchorable BrowserURL="127.0.0.1" ContentHash="ZZV9fNiDlk26McathDuJWg" DesignTimeRectangle="758, 979, 1360, 57" ElementType="DropDown" ElementVisibilityArgument="Interactive" FuzzySelectorArgument="&lt;webctrl id='claimType' tag='SELECT' type='' class='' aaname='' matching:id='fuzzy' fuzzylevel:id='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' /&gt;" Guid="8b178f46-91da-4a25-96e5-7e3ddd6c669f" InformativeScreenshot="d256a03a1ec84d40206a20b1f61fcdfa.jpg" Reference="yD5kY0yUz0CgsGm-QhTFpw/7nYQ_eWKkkamSnrCSaGBqw" ScopeSelectorArgument="&lt;html app='chrome.exe' title='SecureSure Claims Intake' /&gt;" SearchSteps="FuzzySelector" Version="V6" WaitForReadyArgument="Interactive">
+                                  <uix:TargetAnchorable.Anchors>
+                                    <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
+                                      <uix:Target DesignTimeRectangle="758, 942, 1360, 94" ElementType="Text" FuzzySelectorArgument="&lt;webctrl aaname='Claim Type' tag='LABEL' type='' class='' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' check:innerText='Claim Type&amp;#xA;Motor&amp;#xA;Health&amp;#xA;Property' /&gt;" Guid="cb2de8d6-e787-49c2-914b-0fa8977e8c2d" SearchSteps="FuzzySelector" />
+                                    </scg:List>
+                                  </uix:TargetAnchorable.Anchors>
+                                </uix:TargetAnchorable>
+                              </uix:NSelectItem.Target>
+                            </uix:NSelectItem>
+                            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type Into 'Claim TypeMotorHealthPr…'" EmptyFieldMode="SingleLine" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="452,247" sap2010:WorkflowViewState.IdRef="NTypeInto_12" InteractionMode="SameAsCard" ScopeIdentifier="7dd032ee-7160-4ee4-a417-ca9b7e0e9d05" Text="[CurrentRow(&quot;ClaimType&quot;).ToString]" Version="V5">
+                              <uix:NTypeInto.Target>
+                                <uix:TargetAnchorable BrowserURL="127.0.0.1" ContentHash="slEXo_Yp9kmD94b9XiOskw" DesignTimeRectangle="758, 979, 1360, 57" ElementType="DropDown" ElementVisibilityArgument="Interactive" FuzzySelectorArgument="&lt;webctrl id='claimType' tag='SELECT' type='' class='' aaname='' matching:id='fuzzy' fuzzylevel:id='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' /&gt;" Guid="7389400f-1c51-4601-a318-1fd7d3892f18" InformativeScreenshot="ab769cfd0dfb38e1c9b994037f095d71.jpg" Reference="yD5kY0yUz0CgsGm-QhTFpw/eAANGoxLvUKr8sTwN9dHDw" ScopeSelectorArgument="&lt;html app='chrome.exe' title='SecureSure Claims Intake' /&gt;" SearchSteps="FuzzySelector" Version="V6" WaitForReadyArgument="Interactive">
+                                  <uix:TargetAnchorable.Anchors>
+                                    <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
+                                      <uix:Target DesignTimeRectangle="758, 942, 1360, 94" ElementType="Text" FuzzySelectorArgument="&lt;webctrl aaname='Claim Type' tag='LABEL' type='' class='' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' check:innerText='Claim Type&amp;#xA;Motor&amp;#xA;Health&amp;#xA;Property' /&gt;" Guid="64e7b926-43e8-496f-b6c9-e9d21ad83a4c" SearchSteps="FuzzySelector" />
+                                    </scg:List>
+                                  </uix:TargetAnchorable.Anchors>
+                                </uix:TargetAnchorable>
+                              </uix:NTypeInto.Target>
+                              <uix:NTypeInto.VerifyOptions>
+                                <uix:VerifyExecutionTypeIntoOptions Mode="Appears">
+                                  <uix:VerifyExecutionTypeIntoOptions.Retry>
+                                    <InArgument x:TypeArguments="x:Boolean" />
+                                  </uix:VerifyExecutionTypeIntoOptions.Retry>
+                                  <uix:VerifyExecutionTypeIntoOptions.Timeout>
+                                    <InArgument x:TypeArguments="x:Double" />
+                                  </uix:VerifyExecutionTypeIntoOptions.Timeout>
+                                </uix:VerifyExecutionTypeIntoOptions>
+                              </uix:NTypeInto.VerifyOptions>
+                            </uix:NTypeInto>
+                            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type Into 'Date of Loss'" EmptyFieldMode="SingleLine" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="452,247" sap2010:WorkflowViewState.IdRef="NTypeInto_11" InteractionMode="SameAsCard" ScopeIdentifier="7dd032ee-7160-4ee4-a417-ca9b7e0e9d05" Text="[CurrentRow(&quot;DateOfLoss&quot;).ToString]" Version="V5">
+                              <uix:NTypeInto.Target>
+                                <uix:TargetAnchorable BrowserURL="127.0.0.1" ContentHash="GHKYDYFp8E2umGg1aC0o5A" DesignTimeRectangle="758, 939, 1360, 60" ElementType="InputBox" ElementVisibilityArgument="Interactive" FuzzySelectorArgument="&lt;webctrl id='dateOfLoss' tag='INPUT' type='text' class='' placeholder='YYYY-MM-DD' aaname='' matching:id='fuzzy' fuzzylevel:id='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' /&gt;" Guid="8bc539f3-32bc-457b-adfc-076582c3c4f7" InformativeScreenshot="806247568f98659731700cfb86617b03.jpg" Reference="yD5kY0yUz0CgsGm-QhTFpw/_kkgdww5gUOk4HYxkGB2Pw" ScopeSelectorArgument="&lt;html app='chrome.exe' title='SecureSure Claims Intake' /&gt;" SearchSteps="FuzzySelector" Version="V6" WaitForReadyArgument="Interactive">
+                                  <uix:TargetAnchorable.Anchors>
+                                    <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
+                                      <uix:Target DesignTimeRectangle="758, 902, 1360, 97" ElementType="Text" FuzzySelectorArgument="&lt;webctrl aaname='Date of Loss    ' tag='LABEL' type='' class='' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' check:innerText='Date of Loss' /&gt;" Guid="8d4d6d75-672c-4063-a166-05c778bc8cad" SearchSteps="FuzzySelector" />
+                                    </scg:List>
+                                  </uix:TargetAnchorable.Anchors>
+                                </uix:TargetAnchorable>
+                              </uix:NTypeInto.Target>
+                              <uix:NTypeInto.VerifyOptions>
+                                <uix:VerifyExecutionTypeIntoOptions Mode="Appears">
+                                  <uix:VerifyExecutionTypeIntoOptions.Retry>
+                                    <InArgument x:TypeArguments="x:Boolean" />
+                                  </uix:VerifyExecutionTypeIntoOptions.Retry>
+                                  <uix:VerifyExecutionTypeIntoOptions.Timeout>
+                                    <InArgument x:TypeArguments="x:Double" />
+                                  </uix:VerifyExecutionTypeIntoOptions.Timeout>
+                                </uix:VerifyExecutionTypeIntoOptions>
+                              </uix:NTypeInto.VerifyOptions>
+                            </uix:NTypeInto>
+                            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type Into 'Loss Type'" EmptyFieldMode="SingleLine" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="452,247" sap2010:WorkflowViewState.IdRef="NTypeInto_9" InteractionMode="SameAsCard" ScopeIdentifier="7dd032ee-7160-4ee4-a417-ca9b7e0e9d05" Text="[CurrentRow(&quot;LossType&quot;).ToString]" Version="V5">
+                              <uix:NTypeInto.Target>
+                                <uix:TargetAnchorable BrowserURL="127.0.0.1" ContentHash="3IZSLFWNwUqW0MN26WvJDw" DesignTimeRectangle="758, 1211, 1360, 60" ElementType="InputBox" ElementVisibilityArgument="Interactive" FuzzySelectorArgument="&lt;webctrl id='lossType' tag='INPUT' type='' class='' aaname='' matching:id='fuzzy' fuzzylevel:id='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' /&gt;" Guid="324b9fda-8ef5-4e81-9d88-230bd562916b" InformativeScreenshot="b9eb1ee83991db4cef45f00295234a05.jpg" Reference="yD5kY0yUz0CgsGm-QhTFpw/893WVVLugkSTRx9eIaaIfQ" ScopeSelectorArgument="&lt;html app='chrome.exe' title='SecureSure Claims Intake' /&gt;" SearchSteps="FuzzySelector" Version="V6" WaitForReadyArgument="Interactive">
+                                  <uix:TargetAnchorable.Anchors>
+                                    <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
+                                      <uix:Target DesignTimeRectangle="758, 1174, 1360, 97" ElementType="Text" FuzzySelectorArgument="&lt;webctrl aaname='Loss Type' tag='LABEL' type='' class='' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' check:innerText='Loss Type' /&gt;" Guid="398ea854-57b8-4b07-9d34-ad9996a420f5" SearchSteps="FuzzySelector" />
+                                    </scg:List>
+                                  </uix:TargetAnchorable.Anchors>
+                                </uix:TargetAnchorable>
+                              </uix:NTypeInto.Target>
+                              <uix:NTypeInto.VerifyOptions>
+                                <uix:VerifyExecutionTypeIntoOptions Mode="Appears">
+                                  <uix:VerifyExecutionTypeIntoOptions.Retry>
+                                    <InArgument x:TypeArguments="x:Boolean" />
+                                  </uix:VerifyExecutionTypeIntoOptions.Retry>
+                                  <uix:VerifyExecutionTypeIntoOptions.Timeout>
+                                    <InArgument x:TypeArguments="x:Double" />
+                                  </uix:VerifyExecutionTypeIntoOptions.Timeout>
+                                </uix:VerifyExecutionTypeIntoOptions>
+                              </uix:NTypeInto.VerifyOptions>
+                            </uix:NTypeInto>
+                            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type Into 'Claim Amount'" EmptyFieldMode="SingleLine" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="452,247" sap2010:WorkflowViewState.IdRef="NTypeInto_10" InteractionMode="SameAsCard" ScopeIdentifier="7dd032ee-7160-4ee4-a417-ca9b7e0e9d05" Text="[CurrentRow(&quot;ClaimAmount&quot;).ToString]" Version="V5">
+                              <uix:NTypeInto.Target>
+                                <uix:TargetAnchorable BrowserURL="127.0.0.1" ContentHash="UmdBJlCtwU6Cg7yTsSs_EQ" DesignTimeRectangle="758, 1327, 1360, 60" ElementType="InputBox" ElementVisibilityArgument="Interactive" FuzzySelectorArgument="&lt;webctrl id='claimAmount' tag='INPUT' type='number' class='' aaname='' matching:id='fuzzy' fuzzylevel:id='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' /&gt;" Guid="1e611ab9-53be-4568-b74e-8a5eccf52a1d" InformativeScreenshot="048d766b1ecb191bc36a242317762f4c.jpg" Reference="yD5kY0yUz0CgsGm-QhTFpw/kDnAupXkTU6kJLMTxYR6Uw" ScopeSelectorArgument="&lt;html app='chrome.exe' title='SecureSure Claims Intake' /&gt;" SearchSteps="FuzzySelector" Version="V6" WaitForReadyArgument="Interactive">
+                                  <uix:TargetAnchorable.Anchors>
+                                    <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
+                                      <uix:Target DesignTimeRectangle="758, 1290, 1360, 97" ElementType="Text" FuzzySelectorArgument="&lt;webctrl aaname='Claim Amount' tag='LABEL' type='' class='' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' check:innerText='Claim Amount' /&gt;" Guid="11a86f7a-a2a6-4d97-9562-cbd3d86f8a7a" SearchSteps="FuzzySelector" />
+                                    </scg:List>
+                                  </uix:TargetAnchorable.Anchors>
+                                </uix:TargetAnchorable>
+                              </uix:NTypeInto.Target>
+                              <uix:NTypeInto.VerifyOptions>
+                                <uix:VerifyExecutionTypeIntoOptions Mode="Appears">
+                                  <uix:VerifyExecutionTypeIntoOptions.Retry>
+                                    <InArgument x:TypeArguments="x:Boolean" />
+                                  </uix:VerifyExecutionTypeIntoOptions.Retry>
+                                  <uix:VerifyExecutionTypeIntoOptions.Timeout>
+                                    <InArgument x:TypeArguments="x:Double" />
+                                  </uix:VerifyExecutionTypeIntoOptions.Timeout>
+                                </uix:VerifyExecutionTypeIntoOptions>
+                              </uix:NTypeInto.VerifyOptions>
+                            </uix:NTypeInto>
+                            <uix:NSelectItem DisplayName="Select Item 'Documents CompleteYesNo'" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="452,195.5" sap2010:WorkflowViewState.IdRef="NSelectItem_5" Item="Yes" ScopeIdentifier="7dd032ee-7160-4ee4-a417-ca9b7e0e9d05" Version="V5">
+                              <uix:NSelectItem.Items>
+                                <scg:List x:TypeArguments="x:String" Capacity="2">
+                                  <x:String>Yes</x:String>
+                                  <x:String>No</x:String>
+                                </scg:List>
+                              </uix:NSelectItem.Items>
+                              <uix:NSelectItem.Target>
+                                <uix:TargetAnchorable BrowserURL="127.0.0.1" ContentHash="08tuQ2hWBUSGOyxY5aT21A" DesignTimeRectangle="758, 1440, 1360, 57" ElementType="DropDown" ElementVisibilityArgument="Interactive" FuzzySelectorArgument="&lt;webctrl id='documentsComplete' tag='SELECT' type='' class='' aaname='' matching:id='fuzzy' fuzzylevel:id='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' /&gt;" Guid="81e5f859-8c23-4fc2-9f6e-365e45ccf911" InformativeScreenshot="16791f0521190cab4ca2afec7292a2c7.jpg" Reference="yD5kY0yUz0CgsGm-QhTFpw/MxvBnYPOcUem7bENMm9LBw" ScopeSelectorArgument="&lt;html app='chrome.exe' title='SecureSure Claims Intake' /&gt;" SearchSteps="FuzzySelector" Version="V6" WaitForReadyArgument="Interactive">
+                                  <uix:TargetAnchorable.Anchors>
+                                    <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
+                                      <uix:Target DesignTimeRectangle="758, 1403, 1360, 94" ElementType="Text" FuzzySelectorArgument="&lt;webctrl aaname='Documents Complete' tag='LABEL' type='' class='' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' check:innerText='Documents Complete&amp;#xA;Yes&amp;#xA;No' /&gt;" Guid="52203e1d-8003-4112-905a-05ded2b6895b" SearchSteps="FuzzySelector" />
+                                    </scg:List>
+                                  </uix:TargetAnchorable.Anchors>
+                                </uix:TargetAnchorable>
+                              </uix:NSelectItem.Target>
+                            </uix:NSelectItem>
+                            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type Into 'Documents CompleteYesNo'" EmptyFieldMode="SingleLine" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="452,247" sap2010:WorkflowViewState.IdRef="NTypeInto_13" InteractionMode="SameAsCard" ScopeIdentifier="7dd032ee-7160-4ee4-a417-ca9b7e0e9d05" Text="[CurrentRow(&quot;DocumentsComplete&quot;).ToString]" Version="V5">
+                              <uix:NTypeInto.Target>
+                                <uix:TargetAnchorable BrowserURL="127.0.0.1" ContentHash="UiFAaWPkAE-yeoWyLcVeJA" DesignTimeRectangle="758, 1440, 1360, 57" ElementType="DropDown" ElementVisibilityArgument="Interactive" FuzzySelectorArgument="&lt;webctrl id='documentsComplete' tag='SELECT' type='' class='' aaname='' matching:id='fuzzy' fuzzylevel:id='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' /&gt;" Guid="c9b16a24-82c2-4219-b843-53ae9f236194" InformativeScreenshot="b8525817e55719b8c8ffce7e9872a26d.jpg" Reference="yD5kY0yUz0CgsGm-QhTFpw/TJHORikvrEGBGnLOgMgn4w" ScopeSelectorArgument="&lt;html app='chrome.exe' title='SecureSure Claims Intake' /&gt;" SearchSteps="FuzzySelector" Version="V6" WaitForReadyArgument="Interactive">
+                                  <uix:TargetAnchorable.Anchors>
+                                    <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
+                                      <uix:Target DesignTimeRectangle="758, 1403, 1360, 94" ElementType="Text" FuzzySelectorArgument="&lt;webctrl aaname='Documents Complete' tag='LABEL' type='' class='' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' check:innerText='Documents Complete&amp;#xA;Yes&amp;#xA;No' /&gt;" Guid="681ba3b1-b8ba-415c-a02c-4cd51d927f65" SearchSteps="FuzzySelector" />
+                                    </scg:List>
+                                  </uix:TargetAnchorable.Anchors>
+                                </uix:TargetAnchorable>
+                              </uix:NTypeInto.Target>
+                              <uix:NTypeInto.VerifyOptions>
+                                <uix:VerifyExecutionTypeIntoOptions Mode="Appears">
+                                  <uix:VerifyExecutionTypeIntoOptions.Retry>
+                                    <InArgument x:TypeArguments="x:Boolean" />
+                                  </uix:VerifyExecutionTypeIntoOptions.Retry>
+                                  <uix:VerifyExecutionTypeIntoOptions.Timeout>
+                                    <InArgument x:TypeArguments="x:Double" />
+                                  </uix:VerifyExecutionTypeIntoOptions.Timeout>
+                                </uix:VerifyExecutionTypeIntoOptions>
+                              </uix:NTypeInto.VerifyOptions>
+                            </uix:NTypeInto>
+                            <uix:NSelectItem DisplayName="Select Item 'Fraud FlagNoYes'" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="452,195.5" sap2010:WorkflowViewState.IdRef="NSelectItem_3" Item="Yes" ScopeIdentifier="7dd032ee-7160-4ee4-a417-ca9b7e0e9d05" Version="V5">
+                              <uix:NSelectItem.Items>
+                                <scg:List x:TypeArguments="x:String" Capacity="2">
+                                  <x:String>No</x:String>
+                                  <x:String>Yes</x:String>
+                                </scg:List>
+                              </uix:NSelectItem.Items>
+                              <uix:NSelectItem.Target>
+                                <uix:TargetAnchorable BrowserURL="127.0.0.1" ContentHash="hIFvj_AD_kS8RnYpmebxaw" DesignTimeRectangle="758, 1400, 1360, 57" ElementType="DropDown" ElementVisibilityArgument="Interactive" FuzzySelectorArgument="&lt;webctrl id='fraudFlag' tag='SELECT' type='' class='' aaname='' matching:id='fuzzy' fuzzylevel:id='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' /&gt;" Guid="ad59c1ba-b977-4d7e-a0ff-bef967a69299" InformativeScreenshot="9095cf1275406b356dd023336713b833.jpg" Reference="yD5kY0yUz0CgsGm-QhTFpw/mKg5LJerjUGLDFsUXqLWpA" ScopeSelectorArgument="&lt;html app='chrome.exe' title='SecureSure Claims Intake' /&gt;" SearchSteps="FuzzySelector" Version="V6" WaitForReadyArgument="Interactive">
+                                  <uix:TargetAnchorable.Anchors>
+                                    <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
+                                      <uix:Target DesignTimeRectangle="758, 1363, 1360, 94" ElementType="Text" FuzzySelectorArgument="&lt;webctrl aaname='Fraud Flag' tag='LABEL' type='' class='' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' check:innerText='Fraud Flag&amp;#xA;No&amp;#xA;Yes' /&gt;" Guid="ce68d03d-ef42-4750-9c91-2c742c544970" SearchSteps="FuzzySelector" />
+                                    </scg:List>
+                                  </uix:TargetAnchorable.Anchors>
+                                </uix:TargetAnchorable>
+                              </uix:NSelectItem.Target>
+                            </uix:NSelectItem>
+                            <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type Into 'Fraud FlagNoYes'" EmptyFieldMode="SingleLine" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="452,247" sap2010:WorkflowViewState.IdRef="NTypeInto_14" InteractionMode="SameAsCard" ScopeIdentifier="7dd032ee-7160-4ee4-a417-ca9b7e0e9d05" Text="[CurrentRow(&quot;FraudFlag&quot;).ToString]" Version="V5">
+                              <uix:NTypeInto.Target>
+                                <uix:TargetAnchorable BrowserURL="127.0.0.1" ContentHash="wv3gJoCNH0uWOv5DK9ZLQQ" DesignTimeRectangle="758, 1553, 1360, 56" ElementType="DropDown" ElementVisibilityArgument="Interactive" FuzzySelectorArgument="&lt;webctrl id='fraudFlag' tag='SELECT' type='' class='' aaname='' matching:id='fuzzy' fuzzylevel:id='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' /&gt;" Guid="586b9063-d26c-4fe9-a5ab-d7793df6914e" InformativeScreenshot="32e1228288bbcb8a15df40eb678b7253.jpg" Reference="yD5kY0yUz0CgsGm-QhTFpw/0WeIdTHtFU6sTlc-1V-1MQ" ScopeSelectorArgument="&lt;html app='chrome.exe' title='SecureSure Claims Intake' /&gt;" SearchSteps="FuzzySelector" Version="V6" WaitForReadyArgument="Interactive">
+                                  <uix:TargetAnchorable.Anchors>
+                                    <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
+                                      <uix:Target DesignTimeRectangle="758, 1516, 1360, 93" ElementType="Text" FuzzySelectorArgument="&lt;webctrl aaname='Fraud Flag' tag='LABEL' type='' class='' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' check:innerText='Fraud Flag&amp;#xA;No&amp;#xA;Yes' /&gt;" Guid="0928d7b2-b7a4-4197-ab95-5ee492e4ac12" SearchSteps="FuzzySelector" />
+                                    </scg:List>
+                                  </uix:TargetAnchorable.Anchors>
+                                </uix:TargetAnchorable>
+                              </uix:NTypeInto.Target>
+                              <uix:NTypeInto.VerifyOptions>
+                                <uix:VerifyExecutionTypeIntoOptions Mode="Appears">
+                                  <uix:VerifyExecutionTypeIntoOptions.Retry>
+                                    <InArgument x:TypeArguments="x:Boolean" />
+                                  </uix:VerifyExecutionTypeIntoOptions.Retry>
+                                  <uix:VerifyExecutionTypeIntoOptions.Timeout>
+                                    <InArgument x:TypeArguments="x:Double" />
+                                  </uix:VerifyExecutionTypeIntoOptions.Timeout>
+                                </uix:VerifyExecutionTypeIntoOptions>
+                              </uix:NTypeInto.VerifyOptions>
+                            </uix:NTypeInto>
+                            <uix:NClick ActivateBefore="True" ClickType="Single" DisplayName="Click 'Submit Claim'" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="452,194.5" sap2010:WorkflowViewState.IdRef="NClick_2" InteractionMode="SameAsCard" KeyModifiers="None" MouseButton="Left" OutUiElement="[outputElement]" ScopeIdentifier="7dd032ee-7160-4ee4-a417-ca9b7e0e9d05" Version="V5">
+                              <uix:NClick.Target>
+                                <uix:TargetAnchorable BrowserURL="127.0.0.1" ContentHash="nvJYJ_RsLUmCuUVeDiXulw" DesignTimeRectangle="758, 1485, 184, 61" ElementType="Button" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl id='submitClaim' tag='BUTTON' /&gt;" Guid="2315c866-9784-4976-b3e6-81147e8d4e5c" InformativeScreenshot="6d99566500100bdcc076044c8cf2d5bf.jpg" Reference="yD5kY0yUz0CgsGm-QhTFpw/0oNeeCLoYUeDmf6LVGra9g" ScopeSelectorArgument="&lt;html app='chrome.exe' title='SecureSure Claims Intake' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive" />
+                              </uix:NClick.Target>
+                            </uix:NClick>
+                            <uix:NGetText DisplayName="Get Text 'Claim submitted success…'" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="452,143" sap2010:WorkflowViewState.IdRef="NGetText_1" ScopeIdentifier="7dd032ee-7160-4ee4-a417-ca9b7e0e9d05" TextString="[claimStatus]" Version="V5">
+                              <uix:NGetText.Target>
+                                <uix:TargetAnchorable BrowserURL="127.0.0.1" DesignTimeRectangle="758, 1569, 1360, 68" ElementType="Text" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl id='msg' tag='DIV' /&gt;" Guid="cdf68fc8-7a2d-4449-9a51-bbe8b63b3c9f" InformativeScreenshot="2394f6910a33d4f60a0fca43880c9259.jpg" ScopeSelectorArgument="&lt;html app='chrome.exe' title='SecureSure Claims Intake' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive" />
+                              </uix:NGetText.Target>
+                            </uix:NGetText>
+                            <If Condition="[String.IsNullOrWhiteSpace(claimStatus)]" sap:VirtualizedContainerService.HintSize="452,626" sap2010:WorkflowViewState.IdRef="If_2">
+                              <If.Then>
+                                <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="450,227" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                  <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="416,167" sap2010:WorkflowViewState.IdRef="LogMessage_4" Message="[&quot;Claim submission could not be confirmed. Claim ID: &quot; + CurrentRow(&quot;ClaimId&quot;).ToString]" />
+                                </Sequence>
+                              </If.Then>
+                              <If.Else>
+                                <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="450,227" sap2010:WorkflowViewState.IdRef="Sequence_8">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                  <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="416,167" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Claim submission result: &quot; + claimStatus]" />
+                                </Sequence>
+                              </If.Else>
+                            </If>
+                            <uix:NNavigateBrowser Action="Refresh" DisplayName="Navigate Browser - Refresh" sap:VirtualizedContainerService.HintSize="452,122.5" sap2010:WorkflowViewState.IdRef="NNavigateBrowser_1" ScopeIdentifier="7dd032ee-7160-4ee4-a417-ca9b7e0e9d05" Version="V5" />
+                            <Delay Duration="00:00:03" sap:VirtualizedContainerService.HintSize="452,114.5" sap2010:WorkflowViewState.IdRef="Delay_1" />
+                          </Sequence>
+                        </ActivityAction>
+                      </uix:NApplicationCard.Body>
+                      <uix:NApplicationCard.OCREngine>
+                        <ActivityFunc x:TypeArguments="sd1:Image, scg:IEnumerable(scg:KeyValuePair(sd2:Rectangle, x:String))">
+                          <ActivityFunc.Argument>
+                            <DelegateInArgument x:TypeArguments="sd1:Image" Name="Image" />
+                          </ActivityFunc.Argument>
+                        </ActivityFunc>
+                      </uix:NApplicationCard.OCREngine>
+                      <uix:NApplicationCard.TargetApp>
+                        <uix:TargetApp Area="-13, -13, 2906, 1730" BrowserType="Chrome" ContentHash="bpW_Rz0pVkKyDXvx3_BSPA" IconBase64="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" InformativeScreenshot="cb621b09bb52967f9eb31d05751beb3d.jpg" Reference="yD5kY0yUz0CgsGm-QhTFpw/kuhgTUbJE0ePfkXZQlMRHw" Selector="&lt;html app='chrome.exe' title='SecureSure Claims Intake' /&gt;" Url="http://127.0.0.1:8000/" Version="V3" />
+                      </uix:NApplicationCard.TargetApp>
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                    </uix:NApplicationCard>
+                  </Sequence>
+                </If.Then>
+                <If.Else>
+                  <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="522,227" sap2010:WorkflowViewState.IdRef="Sequence_6">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="488,167" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;Claim rejected: Inactive policy. Claim ID: &quot; + CurrentRow(&quot;ClaimId&quot;).ToString]" />
+                  </Sequence>
+                </If.Else>
+              </If>
+            </Sequence>
+          </ActivityAction>
+        </ui:ForEachRow.Body>
+      </ui:ForEachRow>
+    </Sequence>
   </Sequence>
 </Activity>
